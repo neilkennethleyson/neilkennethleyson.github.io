@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI QA Assistant | Neil Kenneth Leyson</title>
+
+    <meta
+        name="description"
+        content="AI QA Assistant case study demonstrating AI-assisted test analysis, Jira workflows, test generation, and QA automation."
+    >
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f1117;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: auto;
+        }
+
+        /* Navigation */
+
+        nav {
+            border-bottom: 1px solid #252936;
+            padding: 20px 0;
+        }
+
+        .nav-container {
+            width: min(1100px, 90%);
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .back-link {
+            color: #9ca3af;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        /* Hero */
+
+        .hero {
+            padding: 90px 0 70px;
+        }
+
+        .eyebrow {
+            color: #60a5fa;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 7vw, 70px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: #9ca3af;
+            font-size: 19px;
+        }
+
+        /* Project Info */
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0 80px;
+        }
+
+        .info-card {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .info-card span {
+            display: block;
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .info-card strong {
+            font-size: 15px;
+        }
+
+        /* Sections */
+
+        section {
+            padding: 60px 0;
+            border-top: 1px solid #252936;
+        }
+
+        h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .section-intro {
+            color: #9ca3af;
+            max-width: 800px;
+            margin-bottom: 35px;
+        }
+
+        /* Cards */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .card p {
+            color: #9ca3af;
+        }
+
+        /* Workflow */
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .workflow-step {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .workflow-number {
+            color: #60a5fa;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .workflow-step p {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Architecture */
+
+        .architecture {
+            display: grid;
+            gap: 12px;
+        }
+
+        .architecture-step {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            gap: 20px;
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .architecture-label {
+            color: #60a5fa;
+            font-weight: bold;
+        }
+
+        .architecture-step p {
+            color: #9ca3af;
+        }
+
+        /* Code */
+
+        .code-block {
+            background: #0a0c10;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 25px;
+            overflow-x: auto;
+            margin-top: 25px;
+        }
+
+        .code-label {
+            color: #60a5fa;
+            font-size: 13px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        pre {
+            color: #cbd5e1;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        /* Metrics */
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .metric {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 34px;
+            margin-bottom: 5px;
+        }
+
+        .metric span {
+            color: #9ca3af;
+        }
+
+        /* Highlight */
+
+        .highlight {
+            border-left: 4px solid #60a5fa;
+            background: #171a22;
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .highlight p {
+            color: #cbd5e1;
+        }
+
+        /* Tools */
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tool {
+            padding: 9px 14px;
+            border: 1px solid #343946;
+            border-radius: 20px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        /* Footer */
+
+        footer {
+            border-top: 1px solid #252936;
+            padding: 40px 0;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 800px) {
+            .project-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .architecture-step {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 60px 0 50px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">NKL</div>
+
+            <a href="index.html" class="back-link">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+
+    <!-- Hero -->
+
+    <header class="hero">
+        <div class="container">
+
+            <div class="eyebrow">
+                Portfolio Project 05
+            </div>
+
+            <h1>
+                AI QA Assistant
+            </h1>
+
+            <p>
+                A conceptual QA automation workflow that uses AI to analyze
+                Jira stories, identify testing considerations, generate
+                structured QA artifacts, and reduce repetitive preparation
+                work.
+            </p>
+
+        </div>
+    </header>
+
+
+    <!-- Project Information -->
+
+    <div class="container">
+
+        <div class="project-info">
+
+            <div class="info-card">
+                <span>Role</span>
+                <strong>QA / Automation</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Platform</span>
+                <strong>Jira</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Technology</span>
+                <strong>AI + Automation</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Focus</span>
+                <strong>QA Workflow Automation</strong>
+            </div>
+
+        </div>
+
+
+        <!-- Overview -->
+
+        <section>
+
+            <h2>Project Overview</h2>
+
+            <p class="section-intro">
+                The goal was to explore how AI could assist QA engineers
+                with repetitive activities while keeping the human tester
+                responsible for validation and final decisions.
+            </p>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>The Problem</h3>
+
+                    <p>
+                        QA preparation can involve repeatedly reviewing
+                        stories, checking acceptance criteria, identifying
+                        missing information, creating test scenarios, and
+                        preparing test-management artifacts.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>The Opportunity</h3>
+
+                    <p>
+                        An AI-assisted workflow can analyze structured
+                        requirements and produce a useful starting point
+                        for QA review, allowing testers to spend more time
+                        on analysis and validation.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Workflow -->
+
+        <section>
+
+            <h2>AI-Assisted QA Workflow</h2>
+
+            <p class="section-intro">
+                The workflow is designed around Jira as the starting point
+                and keeps a human approval step before test artifacts are
+                created.
+            </p>
+
+            <div class="workflow">
+
+                <div class="workflow-step">
+
+                    <div class="workflow-number">01</div>
+
+                    <h3>Read Story</h3>
+
+                    <p>
+                        Retrieve the Jira story, description, acceptance
+                        criteria, and relevant metadata.
+                    </p>
+
+                </div>
+
+
+                <div class="workflow-step">
+
+                    <div class="workflow-number">02</div>
+
+                    <h3>Analyze</h3>
+
+                    <p>
+                        AI identifies missing information, test risks,
+                        scenarios, edge cases, and QA considerations.
+                    </p>
+
+                </div>
+
+
+                <div class="workflow-step">
+
+                    <div class="workflow-number">03</div>
+
+                    <h3>Review</h3>
+
+                    <p>
+                        The QA engineer reviews the AI-generated analysis
+                        and approves or adjusts the recommendations.
+                    </p>
+
+                </div>
+
+
+                <div class="workflow-step">
+
+                    <div class="workflow-number">04</div>
+
+                    <h3>Create</h3>
+
+                    <p>
+                        Approved scenarios can be converted into structured
+                        test-management artifacts.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Architecture -->
+
+        <section>
+
+            <h2>Conceptual Architecture</h2>
+
+            <p class="section-intro">
+                The following architecture illustrates how the components
+                could interact in an AI-assisted QA workflow.
+            </p>
+
+            <div class="architecture">
+
+                <div class="architecture-step">
+
+                    <div class="architecture-label">
+                        01 · Jira
+                    </div>
+
+                    <p>
+                        Provides the user story, acceptance criteria,
+                        comments, status, and relevant project metadata.
+                    </p>
+
+                </div>
+
+
+                <div class="architecture-step">
+
+                    <div class="architecture-label">
+                        02 · QA Assistant
+                    </div>
+
+                    <p>
+                        Retrieves the story and prepares the information
+                        for AI analysis.
+                    </p>
+
+                </div>
+
+
+                <div class="architecture-step">
+
+                    <div class="architecture-label">
+                        03 · AI Analysis
+                    </div>
+
+                    <p>
+                        Identifies test scenarios, negative cases,
+                        ambiguities, risks, and potential coverage gaps.
+                    </p>
+
+                </div>
+
+
+                <div class="architecture-step">
+
+                    <div class="architecture-label">
+                        04 · QA Review
+                    </div>
+
+                    <p>
+                        A human QA engineer validates the recommendations
+                        before anything is created or updated.
+                    </p>
+
+                </div>
+
+
+                <div class="architecture-step">
+
+                    <div class="architecture-label">
+                        05 · Test Management
+                    </div>
+
+                    <p>
+                        Approved scenarios can be transformed into test
+                        sets, executions, or other structured QA artifacts.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Example AI Analysis -->
+
+        <section>
+
+            <h2>Example AI Analysis</h2>
+
+            <p class="section-intro">
+                Example output generated from a fictional user story.
+            </p>
+
+            <div class="code-block">
+
+                <div class="code-label">
+                    AI QA Review
+                </div>
+
+                <pre>
+Story:
+As an employee, I want to submit a time-off request
+so that my manager can review it.
+
+QA Analysis:
+
+Readiness:
+READY WITH QUESTIONS
+
+Functional Scenarios:
+1. Submit valid request
+2. Submit request with missing required fields
+3. Submit overlapping request
+4. Cancel an existing request
+5. Manager approves request
+6. Manager rejects request
+
+Edge Cases:
+- Boundary date selection
+- Maximum request duration
+- Duplicate submission
+- Session expiration
+
+Questions:
+- What happens when the selected date is already unavailable?
+- Should rejected requests be editable?
+- Is there a maximum number of pending requests?
+
+Risk:
+MEDIUM
+                </pre>
+
+            </div>
+
+        </section>
+
+
+        <!-- Human in the Loop -->
+
+        <section>
+
+            <h2>Human-in-the-Loop Design</h2>
+
+            <div class="highlight">
+
+                <p>
+                    AI should assist QA engineers, not replace QA judgment.
+                    The workflow therefore includes a human review and
+                    approval step before AI-generated recommendations are
+                    turned into formal test artifacts.
+                </p>
+
+                <br>
+
+                <p>
+                    This helps prevent incorrect assumptions from being
+                    automatically propagated into the test suite and keeps
+                    accountability with the QA engineer.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Benefits -->
+
+        <section>
+
+            <h2>Potential Benefits</h2>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>Faster Preparation</h3>
+
+                    <p>
+                        Reduce repetitive effort spent creating initial
+                        test scenarios and QA review notes.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Consistent Coverage</h3>
+
+                    <p>
+                        Encourage consistent consideration of positive,
+                        negative, boundary, and edge-case scenarios.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Earlier Risk Detection</h3>
+
+                    <p>
+                        Surface ambiguous requirements and potential
+                        coverage gaps before development is complete.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Better QA Focus</h3>
+
+                    <p>
+                        Allow QA engineers to spend more time on analysis,
+                        exploratory testing, and meaningful validation.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Example Metrics -->
+
+        <section>
+
+            <h2>Example Impact</h2>
+
+            <p class="section-intro">
+                These figures are illustrative portfolio metrics showing
+                how the concept could be evaluated. They are not claimed
+                production measurements.
+            </p>
+
+            <div class="metrics">
+
+                <div class="metric">
+                    <strong>70%</strong>
+                    <span>Example Reduction in Initial Test Preparation</span>
+                </div>
+
+                <div class="metric">
+                    <strong>100%</strong>
+                    <span>Human Review Before Artifact Creation</span>
+                </div>
+
+                <div class="metric">
+                    <strong>1</strong>
+                    <span>Centralized QA Workflow</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QA Thinking -->
+
+        <section>
+
+            <h2>QA Thinking</h2>
+
+            <div class="highlight">
+
+                <p>
+                    The value of AI in QA is not simply generating more
+                    test cases. The real opportunity is improving the
+                    quality and speed of the overall QA workflow.
+                </p>
+
+                <br>
+
+                <p>
+                    A useful AI assistant should understand the context of
+                    the requirement, identify uncertainty, suggest meaningful
+                    coverage, and make the QA engineer's work more efficient
+                    without removing human accountability.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Tools -->
+
+        <section>
+
+            <h2>Tools & Technologies</h2>
+
+            <div class="tools">
+
+                <span class="tool">Jira</span>
+                <span class="tool">AI / LLM</span>
+                <span class="tool">Prompt Engineering</span>
+                <span class="tool">GitHub</span>
+                <span class="tool">GitHub Copilot</span>
+                <span class="tool">Test Management</span>
+                <span class="tool">QA Automation</span>
+                <span class="tool">Requirements Analysis</span>
+                <span class="tool">Test Design</span>
+                <span class="tool">Workflow Automation</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- Portfolio Note -->
+
+        <section>
+
+            <h2>Portfolio Note</h2>
+
+            <div class="highlight">
+
+                <p>
+                    This is a fictional and conceptual portfolio example
+                    demonstrating an AI-assisted QA workflow. It does not
+                    expose confidential, proprietary, customer, or company
+                    information.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <footer>
+
+        <p>
+            © 2026 Neil Kenneth Leyson · Software Quality Engineer
+        </p>
+
+    </footer>
+
+</body>
+</html>
