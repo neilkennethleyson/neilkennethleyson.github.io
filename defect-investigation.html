@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Defect Investigation | Neil Kenneth Leyson</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0f19;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1050px, 90%);
+            margin: auto;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            height: 70px;
+            border-bottom: 1px solid #1f2937;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .back-link {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: #60a5fa;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 100px 0 70px;
+        }
+
+        .label {
+            color: #60a5fa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 25px;
+        }
+
+        .hero-description {
+            max-width: 750px;
+            color: #9ca3af;
+            font-size: 1.15rem;
+        }
+
+        /* PROJECT INFO */
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid #1f2937;
+            border-bottom: 1px solid #1f2937;
+            margin-bottom: 90px;
+        }
+
+        .info-item {
+            padding: 25px;
+            border-right: 1px solid #1f2937;
+        }
+
+        .info-item:last-child {
+            border-right: none;
+        }
+
+        .info-label {
+            color: #6b7280;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: bold;
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding-bottom: 90px;
+        }
+
+        .section-label {
+            color: #60a5fa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .section-text {
+            color: #9ca3af;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+
+        /* BUG REPORT */
+
+        .bug-report {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .bug-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        .bug-key {
+            color: #60a5fa;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .bug-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .bug-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .bug-field {
+            padding: 20px 30px;
+            border-bottom: 1px solid #1f2937;
+            border-right: 1px solid #1f2937;
+        }
+
+        .bug-field:nth-child(even) {
+            border-right: none;
+        }
+
+        .field-label {
+            color: #6b7280;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .field-value {
+            color: #d1d5db;
+            font-size: 0.9rem;
+        }
+
+        .severity-high {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+
+        .priority-high {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        /* STEPS */
+
+        .steps {
+            counter-reset: steps;
+            display: grid;
+            gap: 12px;
+        }
+
+        .step {
+            counter-increment: steps;
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 8px;
+            padding: 18px 20px 18px 55px;
+            position: relative;
+            color: #9ca3af;
+        }
+
+        .step::before {
+            content: counter(steps);
+            position: absolute;
+            left: 18px;
+            top: 17px;
+            width: 22px;
+            height: 22px;
+            border: 1px solid #374151;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #60a5fa;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        /* COMPARISON */
+
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .comparison-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .comparison-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .comparison-card p {
+            color: #9ca3af;
+        }
+
+        /* INVESTIGATION */
+
+        .investigation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .investigation-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .investigation-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .investigation-card p {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* TOOLS */
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tool {
+            border: 1px solid #374151;
+            padding: 8px 13px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #d1d5db;
+        }
+
+        /* LESSON */
+
+        .lesson {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 35px;
+        }
+
+        .lesson h3 {
+            margin-bottom: 12px;
+        }
+
+        .lesson p {
+            color: #9ca3af;
+        }
+
+        /* DISCLAIMER */
+
+        .disclaimer {
+            background: #111827;
+            border-left: 3px solid #60a5fa;
+            padding: 20px;
+            color: #9ca3af;
+            font-size: 0.85rem;
+            border-radius: 5px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid #1f2937;
+            padding: 30px 0;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .project-info {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .info-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .bug-fields,
+            .comparison,
+            .investigation-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bug-field {
+                border-right: none;
+            }
+
+            .footer-container {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo">
+                Neil<span>.</span>
+            </a>
+
+            <a href="index.html" class="back-link">
+                ← Back to Portfolio
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <div class="container">
+
+            <div class="label">
+                Portfolio Project 02
+            </div>
+
+            <h1>
+                Defect Investigation
+            </h1>
+
+            <p class="hero-description">
+                A sample defect investigation demonstrating how I
+                document issues, reproduce unexpected behavior,
+                compare actual versus expected results, and assess
+                business impact.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- PROJECT INFO -->
+
+    <div class="container">
+
+        <div class="project-info">
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Role
+                </div>
+
+                <div class="info-value">
+                    QA Engineer
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Application
+                </div>
+
+                <div class="info-value">
+                    Support Portal
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Defect Type
+                </div>
+
+                <div class="info-value">
+                    Functional
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Priority
+                </div>
+
+                <div class="info-value">
+                    High
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DEFECT REPORT -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                01 — Defect Report
+            </div>
+
+            <h2>
+                Sample Jira-Style Defect
+            </h2>
+
+            <p class="section-text">
+                The following example demonstrates how a defect can be
+                documented so that another team member can understand,
+                reproduce, investigate, and resolve the issue.
+            </p>
+
+
+            <div class="bug-report">
+
+                <div class="bug-header">
+
+                    <div class="bug-key">
+                        DEMO-1042
+                    </div>
+
+                    <div class="bug-title">
+                        Customer status does not update after profile change
+                    </div>
+
+                </div>
+
+
+                <div class="bug-fields">
+
+                    <div class="bug-field">
+
+                        <div class="field-label">
+                            Severity
+                        </div>
+
+                        <div class="field-value severity-high">
+                            High
+                        </div>
+
+                    </div>
+
+
+                    <div class="bug-field">
+
+                        <div class="field-label">
+                            Priority
+                        </div>
+
+                        <div class="field-value priority-high">
+                            High
+                        </div>
+
+                    </div>
+
+
+                    <div class="bug-field">
+
+                        <div class="field-label">
+                            Environment
+                        </div>
+
+                        <div class="field-value">
+                            Web Application / Chrome
+                        </div>
+
+                    </div>
+
+
+                    <div class="bug-field">
+
+                        <div class="field-label">
+                            Component
+                        </div>
+
+                        <div class="field-value">
+                            Customer Profile
+                        </div>
+
+                    </div>
+
+
+                    <div class="bug-field">
+
+                        <div class="field-label">
+                            Frequency
+                        </div>
+
+                        <div class="field-value">
+                            Consistent
+                        </div>
+
+                    </div>
+
+
+                    <div class="bug-field">
+
+                        <div class="field-label">
+                            Status
+                        </div>
+
+                        <div class="field-value">
+                            Open
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- REPRODUCTION -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                02 — Reproduction
+            </div>
+
+            <h2>
+                Steps to Reproduce
+            </h2>
+
+            <div class="steps">
+
+                <div class="step">
+                    Log in using a valid customer-service account.
+                </div>
+
+                <div class="step">
+                    Navigate to the Customer Profile page.
+                </div>
+
+                <div class="step">
+                    Open an existing customer record.
+                </div>
+
+                <div class="step">
+                    Change the customer's status from Active to Inactive.
+                </div>
+
+                <div class="step">
+                    Click Save.
+                </div>
+
+                <div class="step">
+                    Refresh the page and review the customer's status.
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- EXPECTED VS ACTUAL -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                03 — Analysis
+            </div>
+
+            <h2>
+                Expected vs Actual
+            </h2>
+
+            <div class="comparison">
+
+                <div class="comparison-card">
+
+                    <h3>
+                        Expected Result
+                    </h3>
+
+                    <p>
+                        After saving the profile, the customer's status
+                        should be updated to Inactive and remain
+                        Inactive after the page is refreshed.
+                    </p>
+
+                </div>
+
+
+                <div class="comparison-card">
+
+                    <h3>
+                        Actual Result
+                    </h3>
+
+                    <p>
+                        The interface initially displays the updated
+                        status, but after refreshing the page the
+                        customer's status returns to Active.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- INVESTIGATION -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                04 — Investigation
+            </div>
+
+            <h2>
+                Investigation & Impact
+            </h2>
+
+            <div class="investigation-grid">
+
+                <div class="investigation-card">
+
+                    <h3>
+                        Initial Observation
+                    </h3>
+
+                    <p>
+                        The UI appears to accept the change successfully,
+                        suggesting that the initial client-side operation
+                        completed without displaying an error.
+                    </p>
+
+                </div>
+
+
+                <div class="investigation-card">
+
+                    <h3>
+                        Persistence Check
+                    </h3>
+
+                    <p>
+                        Refreshing the page reveals that the updated
+                        value was not persisted correctly.
+                    </p>
+
+                </div>
+
+
+                <div class="investigation-card">
+
+                    <h3>
+                        Business Impact
+                    </h3>
+
+                    <p>
+                        Users may rely on an incorrect customer status,
+                        potentially causing incorrect downstream
+                        processing or reporting.
+                    </p>
+
+                </div>
+
+
+                <div class="investigation-card">
+
+                    <h3>
+                        Recommended Investigation
+                    </h3>
+
+                    <p>
+                        Review the save request, API response,
+                        persistence layer, and subsequent profile
+                        retrieval to determine where the state is lost.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QA THINKING -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                05 — QA Thinking
+            </div>
+
+            <h2>
+                Why This Matters
+            </h2>
+
+            <div class="lesson">
+
+                <h3>
+                    A good defect report should reduce back-and-forth.
+                </h3>
+
+                <p>
+                    Clear reproduction steps, precise expected and actual
+                    results, environment details, frequency, and business
+                    impact give developers and stakeholders enough context
+                    to understand the problem quickly.
+                </p>
+
+                <br>
+
+                <p>
+                    My approach is to investigate beyond the visible
+                    symptom whenever possible. I consider the complete
+                    workflow and ask where the data, state, or expected
+                    behavior may have broken down.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOOLS -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                06 — Tools
+            </div>
+
+            <h2>
+                Relevant Tools & Practices
+            </h2>
+
+            <div class="tools">
+
+                <span class="tool">Jira</span>
+                <span class="tool">Bug Reporting</span>
+                <span class="tool">Functional Testing</span>
+                <span class="tool">Regression Testing</span>
+                <span class="tool">Browser DevTools</span>
+                <span class="tool">API Investigation</span>
+                <span class="tool">Root Cause Analysis</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCLAIMER -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="disclaimer">
+
+                <strong>Portfolio Note:</strong>
+                This is a fictional demonstration project created
+                specifically for portfolio purposes. It does not contain
+                confidential, proprietary, customer, or company data.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="container footer-container">
+
+            <div>
+                © 2026 Neil Kenneth Leyson
+            </div>
+
+            <div>
+                <a href="index.html">
+                    ← Back to Portfolio
+                </a>
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+</html>
