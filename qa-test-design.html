@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QA Test Design | Neil Kenneth Leyson</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0b0f19;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1050px, 90%);
+            margin: auto;
+        }
+
+        /* NAVIGATION */
+
+        nav {
+            height: 70px;
+            border-bottom: 1px solid #1f2937;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .logo span {
+            color: #60a5fa;
+        }
+
+        .back-link {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            color: #60a5fa;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 100px 0 70px;
+        }
+
+        .label {
+            color: #60a5fa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1;
+            letter-spacing: -2px;
+            margin-bottom: 25px;
+        }
+
+        .hero-description {
+            max-width: 750px;
+            color: #9ca3af;
+            font-size: 1.15rem;
+        }
+
+        /* PROJECT INFO */
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            border-top: 1px solid #1f2937;
+            border-bottom: 1px solid #1f2937;
+            margin-bottom: 90px;
+        }
+
+        .info-item {
+            padding: 25px;
+            border-right: 1px solid #1f2937;
+        }
+
+        .info-item:last-child {
+            border-right: none;
+        }
+
+        .info-label {
+            color: #6b7280;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-weight: bold;
+        }
+
+        /* SECTIONS */
+
+        section {
+            padding-bottom: 90px;
+        }
+
+        .section-label {
+            color: #60a5fa;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .section-text {
+            color: #9ca3af;
+            max-width: 800px;
+            margin-bottom: 30px;
+        }
+
+        /* CARDS */
+
+        .card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .card h3 {
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            color: #9ca3af;
+        }
+
+        /* TEST STRATEGY */
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        /* TEST CASE TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid #1f2937;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #1f2937;
+        }
+
+        th {
+            background: #111827;
+            color: #60a5fa;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            color: #d1d5db;
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .test-id {
+            color: #60a5fa;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        /* APPROACH */
+
+        .approach-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .approach-item {
+            background: #111827;
+            border: 1px solid #1f2937;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .approach-item strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .approach-item span {
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+
+        /* TOOLS */
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tool {
+            border: 1px solid #374151;
+            padding: 8px 13px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            color: #d1d5db;
+        }
+
+        /* DISCLAIMER */
+
+        .disclaimer {
+            background: #111827;
+            border-left: 3px solid #60a5fa;
+            padding: 20px;
+            color: #9ca3af;
+            font-size: 0.85rem;
+            border-radius: 5px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid #1f2937;
+            padding: 30px 0;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .project-info {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .info-item:nth-child(2) {
+                border-right: none;
+            }
+
+            .strategy-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- NAVIGATION -->
+
+    <nav>
+
+        <div class="container nav-container">
+
+            <a href="index.html" class="logo">
+                Neil<span>.</span>
+            </a>
+
+            <a href="index.html" class="back-link">
+                ← Back to Portfolio
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <header class="hero">
+
+        <div class="container">
+
+            <div class="label">
+                Portfolio Project 01
+            </div>
+
+            <h1>
+                QA Test Design
+            </h1>
+
+            <p class="hero-description">
+                A sample functional testing project demonstrating
+                structured test design, positive and negative scenarios,
+                validation logic, and business-focused quality thinking.
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <!-- PROJECT INFO -->
+
+    <div class="container">
+
+        <div class="project-info">
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Role
+                </div>
+
+                <div class="info-value">
+                    QA / UAT
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Application
+                </div>
+
+                <div class="info-value">
+                    Time-Off Portal
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Testing
+                </div>
+
+                <div class="info-value">
+                    Functional
+                </div>
+
+            </div>
+
+
+            <div class="info-item">
+
+                <div class="info-label">
+                    Focus
+                </div>
+
+                <div class="info-value">
+                    User Workflows
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROJECT OVERVIEW -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                01 — Overview
+            </div>
+
+            <h2>
+                Project Overview
+            </h2>
+
+            <p class="section-text">
+                The fictional application is an employee self-service
+                portal where employees can submit, review, and cancel
+                time-off requests.
+            </p>
+
+            <p class="section-text">
+                The objective of the QA exercise is to validate that the
+                application's core workflows behave correctly while also
+                identifying common validation, authorization, and
+                edge-case scenarios.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- TEST STRATEGY -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                02 — Test Strategy
+            </div>
+
+            <h2>
+                Testing Approach
+            </h2>
+
+            <div class="strategy-grid">
+
+                <div class="card">
+
+                    <h3>
+                        Functional Testing
+                    </h3>
+
+                    <p>
+                        Validate that users can successfully perform
+                        supported actions such as creating and cancelling
+                        time-off requests.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Negative Testing
+                    </h3>
+
+                    <p>
+                        Attempt invalid actions to verify that the
+                        application prevents incorrect data or unsupported
+                        workflows.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Boundary & Edge Cases
+                    </h3>
+
+                    <p>
+                        Consider scenarios involving date boundaries,
+                        overlapping requests, and unusual user inputs.
+                    </p>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h3>
+                        Authorization
+                    </h3>
+
+                    <p>
+                        Verify that users cannot access functions or data
+                        outside their permitted role or access level.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TEST CASES -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                03 — Test Cases
+            </div>
+
+            <h2>
+                Sample Test Scenarios
+            </h2>
+
+            <p class="section-text">
+                The following examples demonstrate how I approach
+                functional test design using realistic user journeys
+                and expected outcomes.
+            </p>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+                            <th>Test ID</th>
+                            <th>Scenario</th>
+                            <th>Test Condition</th>
+                            <th>Expected Result</th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        <tr>
+
+                            <td class="test-id">
+                                TC-001
+                            </td>
+
+                            <td>
+                                Submit valid time-off request
+                            </td>
+
+                            <td>
+                                User selects a valid future date
+                                and submits the request.
+                            </td>
+
+                            <td>
+                                Request is successfully submitted
+                                and receives the appropriate status.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="test-id">
+                                TC-002
+                            </td>
+
+                            <td>
+                                Submit request without a date
+                            </td>
+
+                            <td>
+                                User attempts to submit without
+                                selecting a required date.
+                            </td>
+
+                            <td>
+                                Validation message is displayed
+                                and request is not submitted.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="test-id">
+                                TC-003
+                            </td>
+
+                            <td>
+                                Submit overlapping request
+                            </td>
+
+                            <td>
+                                User selects dates that overlap
+                                an existing approved request.
+                            </td>
+
+                            <td>
+                                Application prevents the conflicting
+                                request and displays appropriate feedback.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="test-id">
+                                TC-004
+                            </td>
+
+                            <td>
+                                Cancel existing request
+                            </td>
+
+                            <td>
+                                User selects an eligible submitted
+                                time-off request and chooses Cancel.
+                            </td>
+
+                            <td>
+                                Request status changes to Cancelled
+                                and the updated state is displayed.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="test-id">
+                                TC-005
+                            </td>
+
+                            <td>
+                                Access restricted request
+                            </td>
+
+                            <td>
+                                User attempts to access another
+                                employee's request directly.
+                            </td>
+
+                            <td>
+                                Application denies unauthorized access.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="test-id">
+                                TC-006
+                            </td>
+
+                            <td>
+                                Select same start and end date
+                            </td>
+
+                            <td>
+                                User selects the same valid date
+                                for both start and end.
+                            </td>
+
+                            <td>
+                                Application accepts the request if
+                                single-day time off is supported.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="test-id">
+                                TC-007
+                            </td>
+
+                            <td>
+                                Refresh after submission
+                            </td>
+
+                            <td>
+                                User submits a request and refreshes
+                                the browser.
+                            </td>
+
+                            <td>
+                                Newly submitted request remains
+                                persisted with the correct status.
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+
+                            <td class="test-id">
+                                TC-008
+                            </td>
+
+                            <td>
+                                Session expiration
+                            </td>
+
+                            <td>
+                                User's session expires while
+                                accessing the request page.
+                            </td>
+
+                            <td>
+                                User is prompted to authenticate again
+                                and protected information remains secure.
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QA THINKING -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                04 — QA Thinking
+            </div>
+
+            <h2>
+                What I Look For
+            </h2>
+
+
+            <div class="approach-list">
+
+                <div class="approach-item">
+
+                    <strong>
+                        Requirements → Test Coverage
+                    </strong>
+
+                    <span>
+                        Translate functional requirements into
+                        testable scenarios and identify gaps before
+                        execution begins.
+                    </span>
+
+                </div>
+
+
+                <div class="approach-item">
+
+                    <strong>
+                        Happy Path → Failure Conditions
+                    </strong>
+
+                    <span>
+                        Test not only what should work, but also what
+                        happens when users provide invalid input or
+                        perform unexpected actions.
+                    </span>
+
+                </div>
+
+
+                <div class="approach-item">
+
+                    <strong>
+                        User Perspective
+                    </strong>
+
+                    <span>
+                        Consider whether the workflow makes sense
+                        from the perspective of the actual user,
+                        not just whether the system technically responds.
+                    </span>
+
+                </div>
+
+
+                <div class="approach-item">
+
+                    <strong>
+                        Business Impact
+                    </strong>
+
+                    <span>
+                        Consider the potential effect of defects on
+                        users, business processes, data integrity,
+                        and downstream workflows.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TOOLS -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                05 — Tools
+            </div>
+
+            <h2>
+                Relevant Tools & Practices
+            </h2>
+
+            <div class="tools">
+
+                <span class="tool">Jira</span>
+                <span class="tool">Xray</span>
+                <span class="tool">Test Case Design</span>
+                <span class="tool">Functional Testing</span>
+                <span class="tool">Regression Testing</span>
+                <span class="tool">UAT</span>
+                <span class="tool">Defect Reporting</span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISCLAIMER -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="disclaimer">
+
+                <strong>Portfolio Note:</strong>
+                This is a fictional demonstration project created
+                specifically for portfolio purposes. It does not contain
+                confidential, proprietary, customer, or company data.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="container footer-container">
+
+            <div>
+                © 2026 Neil Kenneth Leyson
+            </div>
+
+            <div>
+                <a href="index.html">
+                    ← Back to Portfolio
+                </a>
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+</html>
