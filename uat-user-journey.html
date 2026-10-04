@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>UAT User Journey | Neil Kenneth Leyson</title>
+
+    <meta
+        name="description"
+        content="UAT User Journey case study demonstrating user-focused testing, business validation, and end-to-end workflow analysis."
+    >
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f1117;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: auto;
+        }
+
+        /* Navigation */
+
+        nav {
+            border-bottom: 1px solid #252936;
+            padding: 20px 0;
+        }
+
+        .nav-container {
+            width: min(1100px, 90%);
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .back-link {
+            color: #9ca3af;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        /* Hero */
+
+        .hero {
+            padding: 90px 0 70px;
+        }
+
+        .eyebrow {
+            color: #60a5fa;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 7vw, 70px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 750px;
+            color: #9ca3af;
+            font-size: 19px;
+        }
+
+        /* Project Info */
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0 80px;
+        }
+
+        .info-card {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .info-card span {
+            display: block;
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .info-card strong {
+            font-size: 15px;
+        }
+
+        /* Sections */
+
+        section {
+            padding: 60px 0;
+            border-top: 1px solid #252936;
+        }
+
+        h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .section-intro {
+            color: #9ca3af;
+            max-width: 800px;
+            margin-bottom: 35px;
+        }
+
+        /* Cards */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .card p {
+            color: #9ca3af;
+        }
+
+        /* Journey */
+
+        .journey {
+            display: grid;
+            gap: 15px;
+        }
+
+        .journey-step {
+            display: grid;
+            grid-template-columns: 55px 1fr;
+            gap: 20px;
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .step-number {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #252936;
+            font-weight: bold;
+            color: #60a5fa;
+        }
+
+        .journey-step p {
+            color: #9ca3af;
+        }
+
+        /* Validation Table */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        th,
+        td {
+            padding: 16px;
+            text-align: left;
+            border-bottom: 1px solid #252936;
+        }
+
+        th {
+            background: #1c2029;
+            color: #60a5fa;
+        }
+
+        td {
+            color: #cbd5e1;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* QA Thinking */
+
+        .highlight {
+            border-left: 4px solid #60a5fa;
+            background: #171a22;
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .highlight p {
+            color: #cbd5e1;
+        }
+
+        /* Tools */
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tool {
+            padding: 9px 14px;
+            border: 1px solid #343946;
+            border-radius: 20px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        /* Footer */
+
+        footer {
+            border-top: 1px solid #252936;
+            padding: 40px 0;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 800px) {
+            .project-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 60px 0 50px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">NKL</div>
+
+            <a href="index.html" class="back-link">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+
+    <!-- Hero -->
+
+    <header class="hero">
+        <div class="container">
+
+            <div class="eyebrow">
+                Portfolio Project 03
+            </div>
+
+            <h1>
+                UAT User Journey
+            </h1>
+
+            <p>
+                A fictional UAT case study demonstrating how I approach
+                testing from the perspective of the end user, business
+                process, and complete workflow rather than focusing only
+                on individual test cases.
+            </p>
+
+        </div>
+    </header>
+
+
+    <!-- Project Information -->
+
+    <div class="container">
+
+        <div class="project-info">
+
+            <div class="info-card">
+                <span>Role</span>
+                <strong>UAT / QA</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Application</span>
+                <strong>Employee Request Portal</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Testing</span>
+                <strong>User Acceptance Testing</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Focus</span>
+                <strong>End-to-End User Journey</strong>
+            </div>
+
+        </div>
+
+
+        <!-- Overview -->
+
+        <section>
+
+            <h2>Project Overview</h2>
+
+            <p class="section-intro">
+                The objective of this UAT exercise was to validate whether
+                an employee request workflow worked correctly from the
+                user's perspective and supported the expected business
+                process.
+            </p>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>Business Goal</h3>
+
+                    <p>
+                        Allow employees to submit a request, allow the
+                        appropriate approver to review it, and provide
+                        clear status visibility throughout the process.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>UAT Objective</h3>
+
+                    <p>
+                        Confirm that the complete workflow is usable,
+                        understandable, and aligned with the expected
+                        business outcome.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- User Journey -->
+
+        <section>
+
+            <h2>User Journey</h2>
+
+            <p class="section-intro">
+                Instead of testing each screen independently, the scenario
+                follows a realistic user journey from request creation
+                through final status confirmation.
+            </p>
+
+            <div class="journey">
+
+                <div class="journey-step">
+
+                    <div class="step-number">1</div>
+
+                    <div>
+                        <h3>Employee Logs In</h3>
+
+                        <p>
+                            The employee signs in using a valid account
+                            and navigates to the request portal.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="step-number">2</div>
+
+                    <div>
+                        <h3>Create Request</h3>
+
+                        <p>
+                            The employee selects the appropriate request
+                            type and provides the required information.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="step-number">3</div>
+
+                    <div>
+                        <h3>Submit Request</h3>
+
+                        <p>
+                            The employee submits the request and verifies
+                            that the system provides a confirmation.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="step-number">4</div>
+
+                    <div>
+                        <h3>Approver Reviews</h3>
+
+                        <p>
+                            The designated approver opens the request,
+                            reviews the information, and makes a decision.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="journey-step">
+
+                    <div class="step-number">5</div>
+
+                    <div>
+                        <h3>Employee Checks Status</h3>
+
+                        <p>
+                            The employee returns to the portal and verifies
+                            that the request status reflects the approver's
+                            decision.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Validation -->
+
+        <section>
+
+            <h2>UAT Validation</h2>
+
+            <p class="section-intro">
+                The following examples show how the user journey can be
+                translated into business-focused validation points.
+            </p>
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Validation</th>
+                            <th>Expected Result</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>Login</td>
+
+                            <td>
+                                User accesses the request portal.
+                            </td>
+
+                            <td>
+                                Dashboard loads successfully.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Create</td>
+
+                            <td>
+                                User enters all required information.
+                            </td>
+
+                            <td>
+                                Request can be created without validation errors.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Submit</td>
+
+                            <td>
+                                User submits the request.
+                            </td>
+
+                            <td>
+                                Confirmation is displayed and request receives an identifier.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Approval</td>
+
+                            <td>
+                                Approver reviews the request.
+                            </td>
+
+                            <td>
+                                Approver can approve or reject the request.
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>Status</td>
+
+                            <td>
+                                Employee reviews the request afterward.
+                            </td>
+
+                            <td>
+                                Status reflects the latest business decision.
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- UAT Thinking -->
+
+        <section>
+
+            <h2>UAT Thinking</h2>
+
+            <div class="highlight">
+
+                <p>
+                    UAT is not simply about checking whether individual
+                    test cases pass. The bigger question is whether the
+                    product allows the user to successfully complete the
+                    business task it was designed to support.
+                </p>
+
+                <br>
+
+                <p>
+                    My approach is to connect individual validations into
+                    a complete user journey, while also considering
+                    usability, business rules, status transitions,
+                    notifications, data visibility, and the expected
+                    outcome for the user.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- What This Demonstrates -->
+
+        <section>
+
+            <h2>What This Demonstrates</h2>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>Business Perspective</h3>
+
+                    <p>
+                        Understanding the business outcome behind a
+                        requirement instead of testing only the interface.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>User Perspective</h3>
+
+                    <p>
+                        Validating the product using realistic workflows
+                        and user goals.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>End-to-End Thinking</h3>
+
+                    <p>
+                        Connecting multiple system interactions into a
+                        complete workflow.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Acceptance Validation</h3>
+
+                    <p>
+                        Confirming that the delivered functionality
+                        satisfies the expected business behavior.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Tools -->
+
+        <section>
+
+            <h2>Tools & Techniques</h2>
+
+            <div class="tools">
+
+                <span class="tool">UAT</span>
+                <span class="tool">User Journey Mapping</span>
+                <span class="tool">Functional Testing</span>
+                <span class="tool">Business Validation</span>
+                <span class="tool">Requirements Analysis</span>
+                <span class="tool">Acceptance Criteria</span>
+                <span class="tool">Regression Testing</span>
+                <span class="tool">Defect Reporting</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- Portfolio Note -->
+
+        <section>
+
+            <h2>Portfolio Note</h2>
+
+            <div class="highlight">
+
+                <p>
+                    This is a fictional portfolio example created to
+                    demonstrate UAT methodology and user-focused testing.
+                    It does not contain confidential, proprietary,
+                    customer, or company information.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <footer>
+
+        <p>
+            © 2026 Neil Kenneth Leyson · Software Quality Engineer
+        </p>
+
+    </footer>
+
+</body>
+</html>
