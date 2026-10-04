@@ -7,9 +7,14 @@
     <title>Neil Kenneth Leyson | QA & Product Professional</title>
 
     <meta name="description"
-          content="Professional portfolio of Neil Kenneth Leyson - QA, UAT, Product Support, Project Coordination, and AI-assisted testing.">
+          content="Portfolio of Neil Kenneth Leyson — QA, UAT, Product, Automation and AI-assisted testing professional.">
 
     <style>
+
+        /* ================================
+           RESET
+        ================================= */
+
         * {
             margin: 0;
             padding: 0;
@@ -21,10 +26,19 @@
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0b1120;
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #080b12;
             color: #e5e7eb;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         a {
@@ -32,282 +46,898 @@
             text-decoration: none;
         }
 
-        /* Navigation */
+        /* ================================
+           VARIABLES
+        ================================= */
+
+        :root {
+            --bg: #080b12;
+            --surface: #0f141f;
+            --surface-light: #151c29;
+            --border: #202938;
+
+            --text: #f3f4f6;
+            --muted: #9ca3af;
+
+            --accent: #60a5fa;
+            --accent-strong: #3b82f6;
+
+            --green: #34d399;
+            --purple: #a78bfa;
+        }
+
+        /* ================================
+           BACKGROUND GRID
+        ================================= */
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 50px 50px;
+
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        /* ================================
+           NAVIGATION
+        ================================= */
 
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(11, 17, 32, 0.92);
-            backdrop-filter: blur(10px);
+
+            background: rgba(8,11,18,0.82);
+            backdrop-filter: blur(14px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+
             z-index: 1000;
-            border-bottom: 1px solid #1f2937;
         }
 
         .nav-container {
-            max-width: 1100px;
+            max-width: 1150px;
             margin: auto;
-            padding: 18px 24px;
+
+            padding: 18px 25px;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo {
+            font-weight: 800;
             font-size: 20px;
-            font-weight: bold;
+
+            letter-spacing: -1px;
+
+            color: white;
+        }
+
+        .logo span {
+            color: var(--accent);
         }
 
         .nav-links {
             display: flex;
-            gap: 25px;
+            gap: 28px;
+
             list-style: none;
+
+            font-size: 14px;
         }
 
         .nav-links a {
-            color: #9ca3af;
-            transition: 0.3s;
+            color: var(--muted);
+
+            transition: 0.25s;
         }
 
         .nav-links a:hover {
             color: white;
         }
 
-        /* Hero */
+        /* ================================
+           HERO
+        ================================= */
 
         .hero {
             min-height: 100vh;
+
+            max-width: 1150px;
+            margin: auto;
+
+            padding:
+                160px 25px
+                100px;
+
             display: flex;
             align-items: center;
-            max-width: 1100px;
-            margin: auto;
-            padding: 120px 24px 80px;
         }
 
         .hero-content {
-            max-width: 750px;
+            max-width: 850px;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 7px 13px;
+
+            border: 1px solid var(--border);
+            border-radius: 999px;
+
+            background: rgba(15,20,31,0.8);
+
+            color: var(--muted);
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+
+            background: var(--green);
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 12px
+                rgba(52,211,153,0.7);
         }
 
         .eyebrow {
-            color: #60a5fa;
-            font-weight: bold;
+            color: var(--accent);
+
+            font-size: 14px;
+
+            font-weight: 700;
+
             letter-spacing: 2px;
+
             text-transform: uppercase;
+
             margin-bottom: 15px;
         }
 
         h1 {
-            font-size: clamp(45px, 7vw, 78px);
-            line-height: 1.05;
-            margin-bottom: 25px;
+            font-size:
+                clamp(48px, 8vw, 88px);
+
+            line-height: 0.98;
+
+            letter-spacing: -4px;
+
+            margin-bottom: 30px;
         }
 
-        .highlight {
-            color: #60a5fa;
+        .gradient-text {
+            background:
+                linear-gradient(
+                    90deg,
+                    #60a5fa,
+                    #a78bfa
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
         }
 
-        .hero p {
+        .hero-description {
+            max-width: 720px;
+
             font-size: 20px;
-            color: #9ca3af;
-            max-width: 700px;
+
+            color: var(--muted);
+
             margin-bottom: 35px;
         }
 
         .buttons {
             display: flex;
-            gap: 15px;
             flex-wrap: wrap;
+
+            gap: 14px;
         }
 
         .button {
-            padding: 13px 22px;
-            border-radius: 8px;
-            font-weight: bold;
-            border: 1px solid #374151;
-            transition: 0.3s;
-        }
+            display: inline-flex;
 
-        .button-primary {
-            background: #2563eb;
-            border-color: #2563eb;
+            align-items: center;
+            justify-content: center;
+
+            padding: 13px 21px;
+
+            border-radius: 9px;
+
+            font-weight: 700;
+
+            font-size: 14px;
+
+            border: 1px solid var(--border);
+
+            transition:
+                transform 0.25s,
+                border-color 0.25s,
+                background 0.25s;
         }
 
         .button:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+
+            border-color:
+                rgba(96,165,250,0.6);
         }
 
-        /* Sections */
+        .button-primary {
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #3b82f6
+                );
+
+            border-color: transparent;
+        }
+
+        .button-secondary {
+            background: var(--surface);
+        }
+
+        /* ================================
+           STATS
+        ================================= */
+
+        .stats {
+            max-width: 1150px;
+
+            margin:
+                -20px auto
+                0;
+
+            padding:
+                0 25px
+                80px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+        .stat {
+            padding: 25px;
+
+            background:
+                rgba(15,20,31,0.7);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+
+            font-weight: 800;
+
+            color: white;
+
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        /* ================================
+           SECTIONS
+        ================================= */
 
         section {
-            max-width: 1100px;
+            max-width: 1150px;
+
             margin: auto;
-            padding: 90px 24px;
+
+            padding:
+                100px 25px;
+        }
+
+        .section-label {
+            color: var(--accent);
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 10px;
         }
 
         .section-title {
-            font-size: 36px;
+            font-size: 42px;
+
+            letter-spacing: -1.5px;
+
             margin-bottom: 15px;
         }
 
         .section-intro {
-            color: #9ca3af;
-            max-width: 700px;
-            margin-bottom: 40px;
+            color: var(--muted);
+
+            max-width: 720px;
+
+            margin-bottom: 45px;
         }
 
-        /* Cards */
+        /* ================================
+           ABOUT
+        ================================= */
 
-        .grid {
+        .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 20px;
+
+            grid-template-columns:
+                1.3fr 1fr;
+
+            gap: 25px;
         }
 
-        .card {
-            background: #111827;
-            border: 1px solid #1f2937;
+        .about-box {
+            padding: 32px;
+
+            background: var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+        }
+
+        .about-box h3 {
+            margin-bottom: 15px;
+        }
+
+        .about-box p {
+            color: var(--muted);
+        }
+
+        /* ================================
+           SKILLS
+        ================================= */
+
+        .skills-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 15px;
+        }
+
+        .skill-card {
+            padding: 22px;
+
+            background: var(--surface);
+
+            border:
+                1px solid var(--border);
+
             border-radius: 12px;
-            padding: 25px;
-            transition: 0.3s;
+
+            transition:
+                transform 0.25s,
+                border-color 0.25s;
         }
 
-        .card:hover {
+        .skill-card:hover {
             transform: translateY(-5px);
-            border-color: #3b82f6;
+
+            border-color:
+                rgba(96,165,250,0.5);
         }
 
-        .card h3 {
+        .skill-icon {
+            font-size: 25px;
+
+            margin-bottom: 12px;
+        }
+
+        .skill-card h3 {
+            font-size: 16px;
+
+            margin-bottom: 6px;
+        }
+
+        .skill-card p {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        /* ================================
+           TECHNOLOGY TAGS
+        ================================= */
+
+        .tags {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+            margin-top: 25px;
+        }
+
+        .tag {
+            padding: 7px 12px;
+
+            border:
+                1px solid var(--border);
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border-radius: 7px;
+
+            color: #d1d5db;
+
+            font-size: 13px;
+        }
+
+        /* ================================
+           PORTFOLIO
+        ================================= */
+
+        .portfolio-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+        }
+
+        .project {
+            padding: 28px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #111827,
+                    #0c111b
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 14px;
+
+            min-height: 240px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            transition:
+                transform 0.25s,
+                border-color 0.25s;
+        }
+
+        .project:hover {
+            transform: translateY(-6px);
+
+            border-color:
+                rgba(96,165,250,0.5);
+        }
+
+        .project-number {
+            color: var(--accent);
+
+            font-family: monospace;
+
+            font-size: 13px;
+
+            margin-bottom: 25px;
+        }
+
+        .project h3 {
+            font-size: 20px;
+
             margin-bottom: 10px;
         }
 
-        .card p {
-            color: #9ca3af;
+        .project p {
+            color: var(--muted);
+
+            font-size: 14px;
+
+            margin-bottom: 20px;
         }
 
-        /* Skills */
+        .project-link {
+            margin-top: auto;
 
-        .skills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            color: var(--accent);
+
+            font-size: 13px;
+
+            font-weight: 700;
         }
 
-        .skill {
-            background: #111827;
-            border: 1px solid #374151;
-            padding: 9px 14px;
-            border-radius: 20px;
-            color: #d1d5db;
-        }
-
-        /* Timeline */
+        /* ================================
+           EXPERIENCE
+        ================================= */
 
         .timeline {
-            border-left: 2px solid #374151;
-            padding-left: 30px;
+            position: relative;
+
+            margin-left: 10px;
+
+            border-left:
+                1px solid var(--border);
         }
 
         .timeline-item {
-            margin-bottom: 35px;
+            position: relative;
+
+            padding:
+                0 0
+                45px
+                35px;
+        }
+
+        .timeline-item::before {
+            content: "";
+
+            position: absolute;
+
+            left: -6px;
+
+            top: 4px;
+
+            width: 11px;
+            height: 11px;
+
+            border-radius: 50%;
+
+            background:
+                var(--accent);
+
+            box-shadow:
+                0 0 15px
+                rgba(96,165,250,0.6);
+        }
+
+        .timeline-date {
+            color: var(--accent);
+
+            font-size: 13px;
+
+            font-family: monospace;
+
+            margin-bottom: 7px;
         }
 
         .timeline-item h3 {
-            margin-bottom: 5px;
+            font-size: 20px;
+
+            margin-bottom: 4px;
         }
 
-        .timeline-item .date {
-            color: #60a5fa;
+        .timeline-company {
+            color: #d1d5db;
+
             font-size: 14px;
-            margin-bottom: 8px;
+
+            margin-bottom: 10px;
         }
 
         .timeline-item p {
-            color: #9ca3af;
+            color: var(--muted);
+
+            max-width: 700px;
+
+            font-size: 14px;
         }
 
-        /* Footer */
+        /* ================================
+           SERVICES
+        ================================= */
+
+        .services {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 15px;
+        }
+
+        .service {
+            display: flex;
+
+            gap: 16px;
+
+            padding: 22px;
+
+            background: var(--surface);
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 12px;
+        }
+
+        .service-icon {
+            font-size: 22px;
+        }
+
+        .service h3 {
+            font-size: 16px;
+
+            margin-bottom: 4px;
+        }
+
+        .service p {
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+        /* ================================
+           CONTACT
+        ================================= */
+
+        .contact {
+            text-align: center;
+
+            padding-bottom: 120px;
+        }
+
+        .contact .section-intro {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-box {
+            padding: 50px 30px;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(59,130,246,0.12),
+                    transparent 60%
+                );
+
+            border:
+                1px solid var(--border);
+
+            border-radius: 16px;
+        }
+
+        /* ================================
+           FOOTER
+        ================================= */
 
         footer {
+            border-top:
+                1px solid var(--border);
+
             text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid #1f2937;
+
+            padding: 30px;
+
             color: #6b7280;
+
+            font-size: 13px;
         }
 
-        /* Mobile */
+        /* ================================
+           RESPONSIVE
+        ================================= */
 
-        @media (max-width: 700px) {
+        @media (max-width: 900px) {
+
+            .stats {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .skills-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .portfolio-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 650px) {
 
             .nav-links {
                 display: none;
             }
 
             .hero {
-                padding-top: 140px;
+                padding-top: 150px;
             }
 
-            .hero p {
-                font-size: 18px;
+            h1 {
+                font-size: 52px;
+
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 17px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .skills-grid,
+            .portfolio-grid,
+            .services {
+                grid-template-columns: 1fr;
             }
 
             section {
-                padding: 70px 20px;
+                padding:
+                    75px 20px;
             }
+
+            .section-title {
+                font-size: 34px;
+            }
+
         }
+
     </style>
 </head>
 
+
 <body>
 
-    <!-- Navigation -->
+
+    <!-- ================================
+         NAVIGATION
+    ================================= -->
 
     <nav>
+
         <div class="nav-container">
 
-            <div class="logo">
-                NKL
-            </div>
+            <a href="#" class="logo">
+                NK<span>.</span>
+            </a>
 
             <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#contact">Contact</a></li>
+
+                <li>
+                    <a href="#about">About</a>
+                </li>
+
+                <li>
+                    <a href="#skills">Skills</a>
+                </li>
+
+                <li>
+                    <a href="#portfolio">Portfolio</a>
+                </li>
+
+                <li>
+                    <a href="#experience">Experience</a>
+                </li>
+
+                <li>
+                    <a href="#contact">Contact</a>
+                </li>
+
             </ul>
 
         </div>
+
     </nav>
 
 
-    <!-- Hero -->
+    <!-- ================================
+         HERO
+    ================================= -->
 
     <header class="hero">
 
         <div class="hero-content">
 
+            <div class="status">
+
+                <span class="status-dot"></span>
+
+                Open to freelance opportunities
+
+            </div>
+
+
             <div class="eyebrow">
                 QA • UAT • Product • Technology
             </div>
 
+
             <h1>
-                Hi, I'm <span class="highlight">Neil Kenneth Leyson.</span>
+
+                Quality meets
+                <span class="gradient-text">
+                    technology.
+                </span>
+
             </h1>
 
-            <p>
-                QA and product professional focused on software quality,
-                user acceptance testing, automation, documentation,
-                and AI-assisted workflows.
+
+            <p class="hero-description">
+
+                I'm Neil Kenneth Leyson — a QA and product professional
+                combining business knowledge, software testing,
+                automation, and AI-assisted workflows to help teams
+                deliver better products.
+
             </p>
+
 
             <div class="buttons">
 
-                <a class="button button-primary" href="#portfolio">
-                    View My Work
+                <a
+                    href="#portfolio"
+                    class="button button-primary">
+
+                    Explore My Work →
+
                 </a>
 
-                <a class="button" href="#contact">
-                    Contact Me
+
+                <a
+                    href="#contact"
+                    class="button button-secondary">
+
+                    Get In Touch
+
                 </a>
 
             </div>
@@ -317,45 +947,154 @@
     </header>
 
 
-    <!-- About -->
+    <!-- ================================
+         STATS
+    ================================= -->
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-number">
+                12+
+            </div>
+
+            <div class="stat-label">
+                Years Professional Experience
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                QA
+            </div>
+
+            <div class="stat-label">
+                Quality & Testing
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                UAT
+            </div>
+
+            <div class="stat-label">
+                Business Validation
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-number">
+                AI
+            </div>
+
+            <div class="stat-label">
+                AI-Assisted Workflows
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================================
+         ABOUT
+    ================================= -->
 
     <section id="about">
 
+        <div class="section-label">
+            01 — About
+        </div>
+
         <h2 class="section-title">
-            About Me
+            More than testing.
         </h2>
 
         <p class="section-intro">
-            I bring experience across quality assurance, user acceptance
-            testing, product support, project coordination, and software
-            delivery. My background combines business understanding with
-            hands-on exposure to modern QA and technology tools.
+
+            My experience sits at the intersection of quality,
+            business requirements, product delivery, and technology.
+
         </p>
 
-        <div class="grid">
 
-            <div class="card">
-                <h3>Quality Assurance</h3>
+        <div class="about-grid">
+
+
+            <div class="about-box">
+
+                <h3>
+                    A business-minded QA professional
+                </h3>
+
                 <p>
-                    Manual testing, regression testing, defect reporting,
-                    test documentation, and quality validation.
+
+                    I approach quality from both the technical and
+                    user perspective. My background includes quality
+                    evaluation, UAT, product support, product
+                    management, and software quality assurance.
+
+                    <br><br>
+
+                    This allows me to look beyond whether a feature
+                    technically works and consider whether it actually
+                    solves the problem it was designed to solve.
+
                 </p>
+
             </div>
 
-            <div class="card">
-                <h3>UAT & Business Analysis</h3>
-                <p>
-                    Translating business requirements into test scenarios
-                    and validating solutions from the user's perspective.
-                </p>
-            </div>
 
-            <div class="card">
-                <h3>Product & Project Support</h3>
+            <div class="about-box">
+
+                <h3>
+                    Current focus
+                </h3>
+
                 <p>
-                    Supporting requirements, backlog quality, release
-                    activities, stakeholder communication, and documentation.
+
+                    I'm expanding my technical capabilities through
+                    test automation, modern development tools,
+                    AI-assisted QA workflows, and continuous learning.
+
                 </p>
+
+
+                <div class="tags">
+
+                    <span class="tag">
+                        Automation
+                    </span>
+
+                    <span class="tag">
+                        Playwright
+                    </span>
+
+                    <span class="tag">
+                        AI
+                    </span>
+
+                    <span class="tag">
+                        Jira
+                    </span>
+
+                    <span class="tag">
+                        Xray
+                    </span>
+
+                </div>
+
             </div>
 
         </div>
@@ -363,127 +1102,346 @@
     </section>
 
 
-    <!-- Skills -->
+    <!-- ================================
+         SKILLS
+    ================================= -->
 
     <section id="skills">
 
+        <div class="section-label">
+            02 — Capabilities
+        </div>
+
         <h2 class="section-title">
-            Skills & Tools
+            What I bring to a project.
         </h2>
 
         <p class="section-intro">
-            Technologies and professional skills I use across QA,
-            product, and project-related work.
+
+            A combination of quality assurance, business analysis,
+            product knowledge, and technical exposure.
+
         </p>
 
-        <div class="skills">
 
-            <span class="skill">Manual QA</span>
-            <span class="skill">UAT</span>
-            <span class="skill">Test Case Design</span>
-            <span class="skill">Bug Reporting</span>
-            <span class="skill">Regression Testing</span>
-            <span class="skill">Jira</span>
-            <span class="skill">Xray</span>
-            <span class="skill">Playwright</span>
-            <span class="skill">GitHub</span>
-            <span class="skill">VS Code</span>
-            <span class="skill">MySQL</span>
-            <span class="skill">MongoDB</span>
-            <span class="skill">GitHub Copilot</span>
-            <span class="skill">AI Tools</span>
-            <span class="skill">Documentation</span>
-            <span class="skill">Stakeholder Coordination</span>
+        <div class="skills-grid">
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🧪
+                </div>
+
+                <h3>
+                    Manual QA
+                </h3>
+
+                <p>
+                    Functional, regression, exploratory,
+                    negative, and edge-case testing.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    UAT
+                </h3>
+
+                <p>
+                    Business-focused validation using
+                    real-world user journeys.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🤖
+                </div>
+
+                <h3>
+                    Test Automation
+                </h3>
+
+                <p>
+                    UI automation and automated regression
+                    using Playwright.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🐞
+                </div>
+
+                <h3>
+                    Defect Management
+                </h3>
+
+                <p>
+                    Clear reproduction steps, evidence,
+                    severity, and impact analysis.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    📋
+                </div>
+
+                <h3>
+                    Documentation
+                </h3>
+
+                <p>
+                    Requirements, test scenarios, reports,
+                    process documentation, and knowledge bases.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    📦
+                </div>
+
+                <h3>
+                    Product Support
+                </h3>
+
+                <p>
+                    Requirements clarification, backlog quality,
+                    release support, and stakeholder coordination.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    AI-Assisted QA
+                </h3>
+
+                <p>
+                    AI-assisted test generation, analysis,
+                    documentation, and workflow automation.
+                </p>
+
+            </div>
+
+
+            <div class="skill-card">
+
+                <div class="skill-icon">
+                    💻
+                </div>
+
+                <h3>
+                    Technical Tools
+                </h3>
+
+                <p>
+                    Jira, Xray, GitHub, VS Code, SQL,
+                    MongoDB, and modern AI tools.
+                </p>
+
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- Portfolio -->
+    <!-- ================================
+         PORTFOLIO
+    ================================= -->
 
     <section id="portfolio">
 
+        <div class="section-label">
+            03 — Selected Work
+        </div>
+
         <h2 class="section-title">
-            Portfolio
+            Things I've worked on.
         </h2>
 
         <p class="section-intro">
-            Selected examples demonstrating my approach to quality,
-            testing, automation, and product support.
+
+            Demonstrations and sanitized examples of my approach
+            to software quality, testing, automation, and delivery.
+
         </p>
 
-        <div class="grid">
 
-            <div class="card">
+        <div class="portfolio-grid">
 
-                <h3>🧪 Test Case Design</h3>
+
+            <div class="project">
+
+                <div class="project-number">
+                    PROJECT / 001
+                </div>
+
+                <h3>
+                    QA Test Design
+                </h3>
 
                 <p>
-                    Example functional and negative test scenarios
-                    designed from business requirements.
+
+                    Functional and negative test scenarios
+                    created from business requirements.
+
                 </p>
+
+                <div class="project-link">
+                    Case study coming soon →
+                </div>
 
             </div>
 
 
-            <div class="card">
+            <div class="project">
 
-                <h3>🐞 Bug Reporting</h3>
+                <div class="project-number">
+                    PROJECT / 002
+                </div>
+
+                <h3>
+                    Defect Investigation
+                </h3>
 
                 <p>
-                    Structured defect reports including reproduction
-                    steps, expected results, actual results, severity,
-                    and supporting evidence.
+
+                    A structured example showing how a defect
+                    can be reproduced, documented, analyzed,
+                    and communicated.
+
                 </p>
+
+                <div class="project-link">
+                    Case study coming soon →
+                </div>
 
             </div>
 
 
-            <div class="card">
+            <div class="project">
 
-                <h3>📋 UAT Documentation</h3>
+                <div class="project-number">
+                    PROJECT / 003
+                </div>
+
+                <h3>
+                    UAT User Journey
+                </h3>
 
                 <p>
-                    User-focused scenarios designed to validate complete
-                    business journeys and expected outcomes.
+
+                    Business-focused UAT scenarios designed
+                    around complete user workflows.
+
                 </p>
+
+                <div class="project-link">
+                    Case study coming soon →
+                </div>
 
             </div>
 
 
-            <div class="card">
+            <div class="project">
 
-                <h3>🔧 Playwright Automation</h3>
+                <div class="project-number">
+                    PROJECT / 004
+                </div>
+
+                <h3>
+                    Playwright Automation
+                </h3>
 
                 <p>
-                    Automated UI testing examples using Playwright
-                    and modern JavaScript testing practices.
+
+                    Automated UI testing examples demonstrating
+                    modern browser automation practices.
+
                 </p>
+
+                <div class="project-link">
+                    Case study coming soon →
+                </div>
 
             </div>
 
 
-            <div class="card">
+            <div class="project">
 
-                <h3>🤖 AI-Assisted QA</h3>
+                <div class="project-number">
+                    PROJECT / 005
+                </div>
+
+                <h3>
+                    AI QA Assistant
+                </h3>
 
                 <p>
-                    Exploring AI-assisted test creation, documentation,
-                    analysis, and QA workflow automation.
+
+                    An exploration of AI-assisted QA workflows
+                    integrated with Jira and testing processes.
+
                 </p>
+
+                <div class="project-link">
+                    Case study coming soon →
+                </div>
 
             </div>
 
 
-            <div class="card">
+            <div class="project">
 
-                <h3>📊 Release & Quality Reporting</h3>
+                <div class="project-number">
+                    PROJECT / 006
+                </div>
+
+                <h3>
+                    Release Quality Report
+                </h3>
 
                 <p>
-                    Sample reporting designed to communicate quality,
-                    testing progress, risks, and release readiness.
+
+                    A sample release report communicating
+                    testing progress, risks, defects, and
+                    release readiness.
+
                 </p>
+
+                <div class="project-link">
+                    Case study coming soon →
+                </div>
 
             </div>
 
@@ -492,29 +1450,51 @@
     </section>
 
 
-    <!-- Experience -->
+    <!-- ================================
+         EXPERIENCE
+    ================================= -->
 
     <section id="experience">
 
+        <div class="section-label">
+            04 — Experience
+        </div>
+
         <h2 class="section-title">
-            Experience
+            Professional journey.
         </h2>
+
+        <p class="section-intro">
+
+            Experience spanning quality, UAT, product,
+            and software delivery.
+
+        </p>
+
 
         <div class="timeline">
 
+
             <div class="timeline-item">
 
-                <div class="date">
-                    2025 – 2026
+                <div class="timeline-date">
+                    2025 — 2026
                 </div>
 
                 <h3>
                     SQA Engineer
                 </h3>
 
+                <div class="timeline-company">
+                    Concentrix
+                </div>
+
                 <p>
-                    Software quality assurance, testing, automation,
-                    defect management, and quality validation.
+
+                    Software quality assurance, test execution,
+                    automation, defect management, regression
+                    testing, and quality validation.
+
                 </p>
 
             </div>
@@ -522,18 +1502,24 @@
 
             <div class="timeline-item">
 
-                <div class="date">
-                    2023 – 2025
+                <div class="timeline-date">
+                    2023 — 2025
                 </div>
 
                 <h3>
                     Product Manager
                 </h3>
 
+                <div class="timeline-company">
+                    Concentrix
+                </div>
+
                 <p>
+
                     Supported product delivery, requirements,
-                    release activities, documentation, and stakeholder
-                    coordination.
+                    release activities, stakeholder communication,
+                    documentation, and product improvements.
+
                 </p>
 
             </div>
@@ -541,17 +1527,24 @@
 
             <div class="timeline-item">
 
-                <div class="date">
-                    2021 – 2023
+                <div class="timeline-date">
+                    2021 — 2023
                 </div>
 
                 <h3>
                     Product SME
                 </h3>
 
+                <div class="timeline-company">
+                    Concentrix
+                </div>
+
                 <p>
-                    Supported product knowledge, training, process
-                    improvement, and user-focused solutions.
+
+                    Supported product knowledge, training,
+                    process improvement, user support,
+                    and business-focused solutions.
+
                 </p>
 
             </div>
@@ -559,17 +1552,23 @@
 
             <div class="timeline-item">
 
-                <div class="date">
-                    2020 – 2021
+                <div class="timeline-date">
+                    2020 — 2021
                 </div>
 
                 <h3>
                     User Acceptance Testing
                 </h3>
 
+                <div class="timeline-company">
+                    Concentrix
+                </div>
+
                 <p>
+
                     Validated software against business requirements
                     and real-world user scenarios.
+
                 </p>
 
             </div>
@@ -577,17 +1576,24 @@
 
             <div class="timeline-item">
 
-                <div class="date">
-                    2015 – 2020
+                <div class="timeline-date">
+                    2015 — 2020
                 </div>
 
                 <h3>
                     Quality Evaluator
                 </h3>
 
+                <div class="timeline-company">
+                    Concentrix
+                </div>
+
                 <p>
-                    Evaluated service quality, identified opportunities
-                    for improvement, and supported quality standards.
+
+                    Evaluated service quality, identified
+                    opportunities for improvement, and supported
+                    quality standards.
+
                 </p>
 
             </div>
@@ -597,46 +1603,225 @@
     </section>
 
 
-    <!-- Contact -->
+    <!-- ================================
+         SERVICES
+    ================================= -->
 
-    <section id="contact">
+    <section>
+
+        <div class="section-label">
+            05 — How I Can Help
+        </div>
 
         <h2 class="section-title">
-            Let's Work Together
+            Looking for someone who can...
         </h2>
 
-        <p class="section-intro">
-            I'm open to opportunities involving QA, UAT, product support,
-            project coordination, testing, documentation, and related
-            freelance work.
-        </p>
 
-        <div class="buttons">
+        <div class="services">
 
-            <a class="button button-primary"
-               href="mailto:your-email@example.com">
-                Email Me
-            </a>
 
-            <a class="button"
-               href="https://github.com/neilkennethleyson"
-               target="_blank">
-                GitHub
-            </a>
+            <div class="service">
+
+                <div class="service-icon">
+                    🧪
+                </div>
+
+                <div>
+
+                    <h3>
+                        Test your application
+                    </h3>
+
+                    <p>
+                        Functional, regression, exploratory,
+                        and UAT testing.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="service">
+
+                <div class="service-icon">
+                    🐞
+                </div>
+
+                <div>
+
+                    <h3>
+                        Find and document bugs
+                    </h3>
+
+                    <p>
+                        Clear, actionable defect reports that
+                        developers can reproduce.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="service">
+
+                <div class="service-icon">
+                    📋
+                </div>
+
+                <div>
+
+                    <h3>
+                        Improve QA documentation
+                    </h3>
+
+                    <p>
+                        Test cases, scenarios, checklists,
+                        reports, and process documentation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="service">
+
+                <div class="service-icon">
+                    🤖
+                </div>
+
+                <div>
+
+                    <h3>
+                        Explore automation
+                    </h3>
+
+                    <p>
+                        Identify repetitive testing opportunities
+                        and build automated coverage.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="service">
+
+                <div class="service-icon">
+                    🧠
+                </div>
+
+                <div>
+
+                    <h3>
+                        Apply AI to workflows
+                    </h3>
+
+                    <p>
+                        Use AI to improve testing, documentation,
+                        analysis, and repetitive processes.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="service">
+
+                <div class="service-icon">
+                    📦
+                </div>
+
+                <div>
+
+                    <h3>
+                        Support product delivery
+                    </h3>
+
+                    <p>
+                        Requirements, stakeholder coordination,
+                        release support, and product documentation.
+                    </p>
+
+                </div>
+
+            </div>
 
         </div>
 
     </section>
 
 
-    <!-- Footer -->
+    <!-- ================================
+         CONTACT
+    ================================= -->
+
+    <section id="contact" class="contact">
+
+        <div class="contact-box">
+
+            <div class="section-label">
+                06 — Contact
+            </div>
+
+            <h2 class="section-title">
+                Let's build something better.
+            </h2>
+
+            <p class="section-intro">
+
+                I'm open to freelance opportunities involving QA,
+                UAT, software testing, product support,
+                documentation, project coordination,
+                and related technology work.
+
+            </p>
+
+
+            <div class="buttons"
+                 style="justify-content:center;">
+
+                <a
+                    href="mailto:your-email@example.com"
+                    class="button button-primary">
+
+                    Email Me
+
+                </a>
+
+
+                <a
+                    href="https://github.com/neilkennethleyson"
+                    target="_blank"
+                    class="button button-secondary">
+
+                    View GitHub
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================================
+         FOOTER
+    ================================= -->
 
     <footer>
 
         © 2026 Neil Kenneth Leyson.
-        Built with HTML & CSS.
+        Built with HTML, CSS & JavaScript.
 
     </footer>
+
 
 </body>
 </html>
