@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Playwright Automation | Neil Kenneth Leyson</title>
+
+    <meta
+        name="description"
+        content="Playwright automation case study demonstrating automated UI testing, test design, assertions, and modern QA engineering practices."
+    >
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f1117;
+            color: #e5e7eb;
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .container {
+            width: min(1100px, 90%);
+            margin: auto;
+        }
+
+        /* Navigation */
+
+        nav {
+            border-bottom: 1px solid #252936;
+            padding: 20px 0;
+        }
+
+        .nav-container {
+            width: min(1100px, 90%);
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .back-link {
+            color: #9ca3af;
+            transition: 0.2s;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        /* Hero */
+
+        .hero {
+            padding: 90px 0 70px;
+        }
+
+        .eyebrow {
+            color: #60a5fa;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            font-size: clamp(40px, 7vw, 70px);
+            line-height: 1.05;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            max-width: 750px;
+            color: #9ca3af;
+            font-size: 19px;
+        }
+
+        /* Project Info */
+
+        .project-info {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 30px 0 80px;
+        }
+
+        .info-card {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .info-card span {
+            display: block;
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .info-card strong {
+            font-size: 15px;
+        }
+
+        /* Sections */
+
+        section {
+            padding: 60px 0;
+            border-top: 1px solid #252936;
+        }
+
+        h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 19px;
+            margin-bottom: 10px;
+        }
+
+        .section-intro {
+            color: #9ca3af;
+            max-width: 800px;
+            margin-bottom: 35px;
+        }
+
+        /* Cards */
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .card {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .card p {
+            color: #9ca3af;
+        }
+
+        /* Code */
+
+        .code-block {
+            background: #0a0c10;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 25px;
+            overflow-x: auto;
+            margin-top: 25px;
+        }
+
+        pre {
+            color: #cbd5e1;
+            font-family: Consolas, Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+        }
+
+        .code-label {
+            color: #60a5fa;
+            font-size: 13px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        /* Workflow */
+
+        .workflow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .workflow-step {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 22px;
+        }
+
+        .workflow-number {
+            color: #60a5fa;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .workflow-step p {
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Metrics */
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .metric {
+            background: #171a22;
+            border: 1px solid #252936;
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .metric strong {
+            display: block;
+            font-size: 36px;
+            margin-bottom: 5px;
+        }
+
+        .metric span {
+            color: #9ca3af;
+        }
+
+        /* Highlight */
+
+        .highlight {
+            border-left: 4px solid #60a5fa;
+            background: #171a22;
+            padding: 25px;
+            border-radius: 0 12px 12px 0;
+        }
+
+        .highlight p {
+            color: #cbd5e1;
+        }
+
+        /* Tools */
+
+        .tools {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tool {
+            padding: 9px 14px;
+            border: 1px solid #343946;
+            border-radius: 20px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        /* Footer */
+
+        footer {
+            border-top: 1px solid #252936;
+            padding: 40px 0;
+            color: #6b7280;
+            text-align: center;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 800px) {
+            .project-info {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .metrics {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .project-info {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 60px 0 50px;
+            }
+
+            h1 {
+                font-size: 42px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">NKL</div>
+
+            <a href="index.html" class="back-link">
+                ← Back to Portfolio
+            </a>
+        </div>
+    </nav>
+
+
+    <!-- Hero -->
+
+    <header class="hero">
+        <div class="container">
+
+            <div class="eyebrow">
+                Portfolio Project 04
+            </div>
+
+            <h1>
+                Playwright Automation
+            </h1>
+
+            <p>
+                A fictional automation case study demonstrating how I
+                approach UI automation, reusable test design, assertions,
+                and regression coverage using Playwright.
+            </p>
+
+        </div>
+    </header>
+
+
+    <!-- Project Information -->
+
+    <div class="container">
+
+        <div class="project-info">
+
+            <div class="info-card">
+                <span>Role</span>
+                <strong>QA Engineer</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Framework</span>
+                <strong>Playwright</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Language</span>
+                <strong>JavaScript</strong>
+            </div>
+
+            <div class="info-card">
+                <span>Focus</span>
+                <strong>UI Regression Automation</strong>
+            </div>
+
+        </div>
+
+
+        <!-- Overview -->
+
+        <section>
+
+            <h2>Project Overview</h2>
+
+            <p class="section-intro">
+                The objective was to automate a set of high-value user
+                workflows that would otherwise require repeated manual
+                regression testing.
+            </p>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>Automation Goal</h3>
+
+                    <p>
+                        Create reliable automated checks for critical
+                        application workflows while keeping the test
+                        suite readable and maintainable.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Why Playwright?</h3>
+
+                    <p>
+                        Playwright provides modern browser automation,
+                        powerful assertions, multiple browser support,
+                        tracing, screenshots, and useful debugging
+                        capabilities.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Automation Workflow -->
+
+        <section>
+
+            <h2>Automation Workflow</h2>
+
+            <p class="section-intro">
+                The automation process follows a structured workflow
+                rather than simply converting manual test steps into code.
+            </p>
+
+            <div class="workflow">
+
+                <div class="workflow-step">
+                    <div class="workflow-number">01</div>
+
+                    <h3>Analyze</h3>
+
+                    <p>
+                        Identify stable, repeatable, and high-value
+                        regression scenarios.
+                    </p>
+                </div>
+
+
+                <div class="workflow-step">
+                    <div class="workflow-number">02</div>
+
+                    <h3>Design</h3>
+
+                    <p>
+                        Define test data, actions, assertions, and
+                        expected application behavior.
+                    </p>
+                </div>
+
+
+                <div class="workflow-step">
+                    <div class="workflow-number">03</div>
+
+                    <h3>Automate</h3>
+
+                    <p>
+                        Implement reusable Playwright tests with
+                        maintainable selectors and assertions.
+                    </p>
+                </div>
+
+
+                <div class="workflow-step">
+                    <div class="workflow-number">04</div>
+
+                    <h3>Validate</h3>
+
+                    <p>
+                        Execute the suite, analyze failures, and
+                        investigate defects or automation issues.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Sample Test -->
+
+        <section>
+
+            <h2>Sample Automated Test</h2>
+
+            <p class="section-intro">
+                Example of a simple automated login validation using
+                Playwright.
+            </p>
+
+            <div class="code-block">
+
+                <div class="code-label">
+                    login.spec.js
+                </div>
+
+                <pre>
+import { test, expect } from '@playwright/test';
+
+test('user can successfully log in', async ({ page }) => {
+
+    await page.goto('https://example.test/login');
+
+    await page.getByLabel('Email').fill('user@example.com');
+
+    await page.getByLabel('Password').fill('Password123!');
+
+    await page.getByRole('button', { name: 'Sign in' }).click();
+
+    await expect(
+        page.getByRole('heading', { name: 'Dashboard' })
+    ).toBeVisible();
+
+});
+                </pre>
+
+            </div>
+
+        </section>
+
+
+        <!-- Test Design -->
+
+        <section>
+
+            <h2>Automation Test Design</h2>
+
+            <div class="grid">
+
+                <div class="card">
+                    <h3>Stable Selectors</h3>
+
+                    <p>
+                        Prefer accessible roles, labels, and stable
+                        application attributes instead of fragile
+                        selectors based on layout or CSS structure.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Meaningful Assertions</h3>
+
+                    <p>
+                        Assertions should validate actual business or
+                        user outcomes rather than simply confirming
+                        that an action completed.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Reusable Structure</h3>
+
+                    <p>
+                        Common actions and page interactions can be
+                        organized into reusable components to reduce
+                        duplication.
+                    </p>
+                </div>
+
+                <div class="card">
+                    <h3>Failure Investigation</h3>
+
+                    <p>
+                        Failed automation should be investigated to
+                        determine whether the cause is a product defect,
+                        test-data issue, environment problem, or
+                        automation issue.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Results -->
+
+        <section>
+
+            <h2>Example Results</h2>
+
+            <p class="section-intro">
+                Example portfolio metrics showing how automation can
+                improve regression efficiency. These figures are
+                illustrative rather than production measurements.
+            </p>
+
+            <div class="metrics">
+
+                <div class="metric">
+                    <strong>25</strong>
+                    <span>Automated Scenarios</span>
+                </div>
+
+                <div class="metric">
+                    <strong>3</strong>
+                    <span>Browser Projects</span>
+                </div>
+
+                <div class="metric">
+                    <strong>~70%</strong>
+                    <span>Example Regression Automation</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- QA Thinking -->
+
+        <section>
+
+            <h2>QA Thinking</h2>
+
+            <div class="highlight">
+
+                <p>
+                    Automation is not simply about replacing manual
+                    testing with code. The most valuable automation
+                    targets repetitive, stable, high-risk workflows
+                    where automated feedback can provide meaningful
+                    value to the development team.
+                </p>
+
+                <br>
+
+                <p>
+                    I also treat automation failures as investigation
+                    opportunities. A failed test does not automatically
+                    mean the application is defective; the test,
+                    environment, data, and application behavior all
+                    need to be considered.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- Tools -->
+
+        <section>
+
+            <h2>Tools & Technologies</h2>
+
+            <div class="tools">
+
+                <span class="tool">Playwright</span>
+                <span class="tool">JavaScript</span>
+                <span class="tool">VS Code</span>
+                <span class="tool">GitHub</span>
+                <span class="tool">Git</span>
+                <span class="tool">UI Automation</span>
+                <span class="tool">Regression Testing</span>
+                <span class="tool">Assertions</span>
+                <span class="tool">Test Design</span>
+                <span class="tool">Debugging</span>
+
+            </div>
+
+        </section>
+
+
+        <!-- Portfolio Note -->
+
+        <section>
+
+            <h2>Portfolio Note</h2>
+
+            <div class="highlight">
+
+                <p>
+                    This is a fictional portfolio example created to
+                    demonstrate Playwright automation concepts. The
+                    example code uses a placeholder application and does
+                    not contain confidential, proprietary, customer, or
+                    company information.
+                </p>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <footer>
+
+        <p>
+            © 2026 Neil Kenneth Leyson · Software Quality Engineer
+        </p>
+
+    </footer>
+
+</body>
+</html>
