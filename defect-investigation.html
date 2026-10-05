@@ -44,20 +44,21 @@
             align-items: center;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+   .nav-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .logo {
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .logo span {
-            color: #60a5fa;
-        }
+      .logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
 
         .back-link {
             color: #9ca3af;
@@ -352,11 +353,16 @@
             font-size: 0.8rem;
         }
 
-        .footer-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-        }
+     .footer-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
 
         /* MOBILE */
 
@@ -397,9 +403,9 @@
 
         <div class="container nav-container">
 
-            <a href="index.html" class="logo">
-                Neil<span>.</span>
-            </a>
+         <a href="index.html" class="logo">
+    <img src="assets/images/NKL%20Logo.jpg" alt="Neil Kenneth Leyson">
+</a>
 
             <a href="index.html" class="back-link">
                 ← Back to Portfolio
@@ -720,7 +726,54 @@
 
     </section>
 
+    <!-- DEFECT EVIDENCE -->
 
+    <section>
+
+        <div class="container">
+
+            <div class="section-label">
+                Actual Defect Evidence
+            </div>
+
+            <h2>
+                Bug Documentation
+            </h2>
+
+            <p class="section-text">
+                Representative screenshots of defect documentation,
+                demonstrating issue identification, reproduction details,
+                and expected versus actual behavior.
+            </p>
+
+            <div class="bug-images">
+
+                <div class="bug-image">
+                    <img
+                        src="assets/images/bug1.png"
+                        alt="Bug documentation screenshot 1"
+                    >
+                </div>
+
+                <div class="bug-image">
+                    <img
+                        src="assets/images/bug2.png"
+                        alt="Bug documentation screenshot 2"
+                    >
+                </div>
+
+                <div class="bug-image">
+                    <img
+                        src="assets/images/bug3.png"
+                        alt="Bug documentation screenshot 3"
+                    >
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
     <!-- INVESTIGATION -->
 
     <section>
