@@ -46,18 +46,21 @@
             padding: 20px 0;
         }
 
-        .nav-container {
-            width: min(1100px, 90%);
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.nav-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-        }
+.logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
 
         .back-link {
             color: #9ca3af;
@@ -272,15 +275,34 @@
             color: #cbd5e1;
             font-size: 14px;
         }
+.automation-image {
+    background: #171a22;
+    border: 1px solid #252936;
+    border-radius: 12px;
+    padding: 15px;
+    overflow: hidden;
+}
 
+.automation-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+}
         /* Footer */
 
-        footer {
-            border-top: 1px solid #252936;
-            padding: 40px 0;
-            color: #6b7280;
-            text-align: center;
-        }
+footer {
+    border-top: 1px solid #252936;
+    padding: 40px 0;
+    color: #6b7280;
+}
+
+footer p {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 40px;
+}
 
         /* Responsive */
 
@@ -326,7 +348,9 @@
 
     <nav>
         <div class="nav-container">
-            <div class="logo">NKL</div>
+           <a href="index.html" class="logo">
+    <img src="assets/images/NKL%20Logo.jpg" alt="Neil Kenneth Leyson">
+</a>
 
             <a href="index.html" class="back-link">
                 ← Back to Portfolio
@@ -340,9 +364,7 @@
     <header class="hero">
         <div class="container">
 
-            <div class="eyebrow">
-                Portfolio Project 04
-            </div>
+            
 
             <h1>
                 Playwright Automation
@@ -533,6 +555,28 @@ test('user can successfully log in', async ({ page }) => {
 
         </section>
 
+
+        <!-- ACTUAL AUTOMATION SCRIPT -->
+
+        <section>
+
+            <h2>Actual Automation Script</h2>
+
+            <p class="section-intro">
+                Sample Playwright automation code demonstrating how I structure
+                automated tests for repeatable and maintainable validation.
+            </p>
+
+            <div class="automation-image">
+
+                <img
+                    src="assets/images/auto.png"
+                    alt="Playwright automation script screenshot"
+                >
+
+            </div>
+
+        </section>
 
         <!-- Test Design -->
 
