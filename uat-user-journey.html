@@ -46,18 +46,21 @@
             padding: 20px 0;
         }
 
-        .nav-container {
-            width: min(1100px, 90%);
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+.nav-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-        }
+.logo img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
 
         .back-link {
             color: #9ca3af;
@@ -300,12 +303,18 @@
         
         /* Footer */
 
-        footer {
-            border-top: 1px solid #252936;
-            padding: 40px 0;
-            color: #6b7280;
-            text-align: center;
-        }
+       footer {
+    border-top: 1px solid #252936;
+    padding: 40px 0;
+    color: #6b7280;
+}
+
+footer p {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0 40px;
+}
 
         /* Responsive */
 
@@ -339,7 +348,9 @@
 
     <nav>
         <div class="nav-container">
-            <div class="logo">NKL</div>
+           <a href="index.html" class="logo">
+    <img src="assets/images/NKL%20Logo.jpg" alt="Neil Kenneth Leyson">
+</a>
 
             <a href="index.html" class="back-link">
                 ← Back to Portfolio
